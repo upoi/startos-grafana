@@ -106,7 +106,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(rate(bifrost_requests_total[5m])) by (model)",
+          "expr": "sum(rate(bifrost_upstream_requests_total[5m])) by (model)",
           "refId": "A"
         }
       ],
@@ -197,7 +197,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(rate(bifrost_tokens_total[5m])) by (type)",
+          "expr": "sum(rate(bifrost_input_tokens_total[5m]) + rate(bifrost_output_tokens_total[5m])) by (model)",
           "refId": "A"
         }
       ],
