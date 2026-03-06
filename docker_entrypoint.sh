@@ -4,10 +4,10 @@ set -e
 echo "Starting Grafana..."
 
 # Ensure proper permissions for the persistent volume
-chown -R grafana:grafana /var/lib/grafana
+chown -R grafana:root /var/lib/grafana
 
 # Also ensure provisioning permissions just in case
-chown -R grafana:grafana /etc/grafana/provisioning
+chown -R grafana:root /etc/grafana/provisioning
 
 # Drop privileges and run grafana
 if command -v su-exec >/dev/null; then
