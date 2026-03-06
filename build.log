@@ -1,1 +1,51 @@
+deno bundle scripts/embassy.ts scripts/embassy.js
+[0m[33m⚠️ Warning: `deno bundle` is deprecated and will be removed in Deno 2.0.
+Use an alternative bundler like "deno_emit", "esbuild" or "rollup" instead.[0m
+[0m[32mBundle[0m file:///home/drupoi/startos-grafana/scripts/embassy.ts
+[0m[32mEmit[0m "/home/drupoi/startos-grafana/scripts/embassy.js" ([0m[38;5;245m133.1KB[0m)
+docker buildx build \
+	--tag start9/grafana/main:0.1.0.0 \
+	--platform linux/amd64 \
+	--file Dockerfile \
+	-o type=docker,dest=docker-images/x86_64.tar .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 416B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/grafana/grafana:latest
+#2 DONE 0.5s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [internal] load build context
+#4 transferring context: 512B done
+#4 DONE 0.0s
+
+#5 [1/5] FROM docker.io/grafana/grafana:latest@sha256:b0ae311af06228bcfd4a620504b653db80f5b91e94dc3dc2a5b7dab202bcde20
+#5 resolve docker.io/grafana/grafana:latest@sha256:b0ae311af06228bcfd4a620504b653db80f5b91e94dc3dc2a5b7dab202bcde20 0.1s done
+#5 DONE 0.1s
+
+#6 [2/5] RUN apk add --no-cache su-exec || apt-get update && apt-get install -y gosu || true
+#6 CACHED
+
+#7 [3/5] COPY docker_entrypoint.sh /docker_entrypoint.sh
+#7 CACHED
+
+#8 [4/5] RUN chmod +x /docker_entrypoint.sh
+#8 CACHED
+
+#9 [5/5] COPY provisioning/ /etc/grafana/provisioning/
+#9 CACHED
+
+#10 exporting to docker image format
+#10 exporting layers done
+#10 exporting manifest sha256:1fe7f5241fc52fb76f85f0c623e838c176baee1543a0f24190d9cbfa39ed3e88 0.0s done
+#10 exporting config sha256:5ceb08fcd425e4453cea3a8752ee1365188af3d5a49799b340880f27ee2fc094 0.0s done
+#10 sending tarball
+#10 sending tarball 4.7s done
+#10 DONE 4.8s
  [ok] grafana.s9pk verified
