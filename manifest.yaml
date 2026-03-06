@@ -1,0 +1,100 @@
+id: grafana
+title: "Grafana"
+version: 0.1.0.0
+release-notes: "Initial release — Grafana for StartOS."
+license: AGPL-3.0
+wrapper-repo: "https://github.com/upoi/startos-grafana"
+upstream-repo: "https://github.com/grafana/grafana"
+support-site: "https://grafana.com/docs/"
+marketing-site: "https://grafana.com/"
+build: ["make"]
+description:
+  short: Operational Data Visualization
+  long: |
+    Grafana allows you to query, visualize, alert on and understand your metrics no matter where they are stored.
+    This package comes pre-configured to connect to Prometheus on StartOS.
+assets:
+  license: LICENSE
+  icon: icon.png
+  instructions: instructions.md
+hardware-requirements:
+  arch:
+    - x86_64
+    - aarch64
+main:
+  type: docker
+  image: main
+  entrypoint: "sh"
+  args: ["-c", "/docker_entrypoint.sh"]
+  user: root
+  mounts:
+    main: /var/lib/grafana
+  gpu-acceleration: false
+health-checks:
+  web-ui:
+    name: "Web UI"
+    success-message: Grafana is accessible
+    type: script
+config: ~
+properties: ~
+volumes:
+  main:
+    type: data
+interfaces:
+  main:
+    name: Grafana UI
+    description: Grafana web interface
+    tor-config:
+      port-mapping:
+        80: "3000"
+    lan-config:
+      443:
+        ssl: true
+        internal: 3000
+    ui: true
+    protocols:
+      - tcp
+      - http
+dependencies:
+  prometheus:
+    version: ">=0.1.0.0"
+    requirement:
+      type: opt-in
+      how: "Install Prometheus and ensure it is running."
+    description: "Used as the primary data source for metrics."
+backup:
+  create:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - duplicity
+      - create
+      - /mnt/backup
+      - /var/lib/grafana
+    mounts:
+      BACKUP: "/mnt/backup"
+      main: "/var/lib/grafana"
+  restore:
+    type: docker
+    image: compat
+    system: true
+    entrypoint: compat
+    args:
+      - duplicity
+      - restore
+      - /mnt/backup
+      - /var/lib/grafana
+    mounts:
+      BACKUP: "/mnt/backup"
+      main: "/var/lib/grafana"
+migrations:
+  from:
+    "*":
+      type: script
+      args: ["from"]
+  to:
+    "*":
+      type: script
+      args: ["to"]
