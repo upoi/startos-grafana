@@ -6,7 +6,4 @@ Grafana allows you to query, visualize, alert on and understand your metrics no 
 This package automatically connects to the **Prometheus** service within your StartOS instance natively.
 
 ## Default Dashboards
-The following dashboards are pre-installed:
-- **Prometheus 2.0 Stats**: For tracking the health and metrics of the Prometheus service.
-- **Glances**: For displaying remote system performance statistics.
-- **Crowdsec**: For monitoring the crowdsec service.
+No dashboards are pre-installed in this deployment. You can import your own or connect Grafana to other services manually.
